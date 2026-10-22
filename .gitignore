@@ -1,0 +1,20 @@
+# Genome assemblies: too large for git. The samplesheet and manifest are tracked.
+data/genomes/**/*.fna
+
+# Downloaded reference models and papers: regenerate with scripts/download_reference_gems.sh
+# (some papers are not licensed for redistribution). Only the catalogue is tracked.
+reference_gems/*/models/
+reference_gems/*/papers/
+
+# Pipeline outputs and Nextflow state
+results/
+work/
+.nextflow/
+.nextflow.log*
+
+# OS / editor / Python
+.DS_Store
+Icon?
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

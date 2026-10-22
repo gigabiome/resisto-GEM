@@ -1,0 +1,23 @@
+Species,Model,Role,Reactions,Metabolites,Genes,Exchanges,Objective,Biomass (as supplied),Biomass (exchanges open),Status (exchanges open),Notes,Path
+Escherichia coli,iML1515,primary,2712,1877,1516,331,BIOMASS_Ec_iML1515_core_75p37M,0.8769972144269406,74.89571939472584,optimal,,Escherichia_coli/models/iML1515.xml
+Escherichia coli,Ecoli-GEM v0.2.0 (HSDy fix),primary alt.,2710,1877,1516,331,BIOMASS_Ec_iML1515_core_75p37M,0.8769972144270244,74.8957193947272,optimal,,Escherichia_coli/models/Ecoli-GEM_v0.2.0/Ecoli-GEM_HSDyfix.xml
+Escherichia coli,Ecoli-GEM v0.2.0 (as released),unpatched,2710,1877,1516,331,BIOMASS_Ec_iML1515_core_75p37M,5.5383331761945535e-33,74.89571939472718,optimal,HSDy blocks Thr/Met/Ile synthesis,Escherichia_coli/models/Ecoli-GEM_v0.2.0/Ecoli-GEM.xml
+Staphylococcus aureus,iYS854,primary,1455,1335,866,237,BIOMASS_iYS_wild_type,1.3602249869877756,391.86286378469913,optimal,,Staphylococcus_aureus/models/iYS854.xml
+Acinetobacter baumannii,iACB23LX,primary,2321,1660,1164,253,Growth,0.5503128575545272,38.404707960347054,optimal,,Acinetobacter_baumannii/models/Leonidou2024/iACB23LX/iACB23LX.xml
+Acinetobacter baumannii,iCN718 (BiGG),secondary,1015,888,709,119,BIOMASS__3,1.3135912923645499,27.506685129043298,optimal,,Acinetobacter_baumannii/models/iCN718.xml
+Acinetobacter baumannii,iCN718 (Leonidou 2024),re-curated,1014,888,709,119,BIOMASS__3,0.09999999909913787,29.16094605611206,optimal,ships with minimal medium (0.1),Acinetobacter_baumannii/models/Leonidou2024/iCN718/model.xml
+Acinetobacter baumannii,iAB5075 (Leonidou 2024),re-curated,2207,1525,1015,194,Growth,0.10000000000000005,64.98653777294007,optimal,ships with minimal medium (0.1),Acinetobacter_baumannii/models/Leonidou2024/iAB5075/model.xml
+Acinetobacter baumannii,iATCC1906 (Leonidou 2024),re-curated,1270,1180,897,126,R761,0.10000000000012235,47.54090606062135,optimal,minimal medium (0.1); KEGG IDs,Acinetobacter_baumannii/models/Leonidou2024/iATCC1906/model.xml
+Acinetobacter baumannii,iLP844 (Leonidou 2024),re-curated,1628,1518,1043,171,EX_cpd11416_c0,0.09999999999948639,67.600665491464,optimal,minimal medium (0.1); ModelSEED IDs,Acinetobacter_baumannii/models/Leonidou2024/iLP844/model.xml
+Acinetobacter baumannii,iJS784 (Leonidou 2024),re-curated,1365,1378,969,23,EX_cpd11416_c0,0.0,0.0,optimal,cannot make biomass; ModelSEED IDs,Acinetobacter_baumannii/models/Leonidou2024/iJS784/model.xml
+Acinetobacter baumannii,AbyMBEL891 (Leonidou 2024),re-curated,891,916,0,8,R761,0.09999999998381973,120.37140750463038,optimal,no GPRs; 1 compartment; R### IDs,Acinetobacter_baumannii/models/Leonidou2024/AbyMBEL891/model.xml
+Acinetobacter baumannii,AGORA AB0057 (Leonidou 2024),re-curated,1593,1340,1019,169,biomass263,0.1000000000007772,133.60097616889283,optimal,minimal medium (0.1); VMH IDs,Acinetobacter_baumannii/models/Leonidou2024/AGORA/model.xml
+Pseudomonas aeruginosa,iSD1509,primary,2021,1642,1510,242,BIOMASS_PA14_v27M,1.5908505727141342,239.42902117106118,optimal,,Pseudomonas_aeruginosa/models/iSD1509/model.xml
+Pseudomonas aeruginosa,iPau21,secondary,1588,1325,1169,211,PA14_Biomass,,159.61100041313236,optimal,all exchanges closed; ModelSEED IDs,Pseudomonas_aeruginosa/models/iPau21.xml
+Klebsiella pneumoniae,KpSC-pan v2,primary,3547,2577,2400,388,BIOMASS_Core_Feb2022,1.4871731245204585,135.9935385241926,optimal,,Klebsiella_pneumoniae/models/KpSC_pan_metabolic_model_v2.xml
+Klebsiella pneumoniae,iYL1228,secondary,2262,1658,1229,289,BIOMASS_,1.0426374979773787,66.73975890148493,optimal,,Klebsiella_pneumoniae/models/iYL1228.xml
+Klebsiella pneumoniae,Jenior clinical,context,302,306,256,32,BIOMASS_,1.383537042495043,1.3835370424952802,optimal,fluxes fixed by transcriptome fit; pruned,Klebsiella_pneumoniae/models/Jenior2022_context/clinical_maxfit/model.xml
+Klebsiella pneumoniae,Jenior clinical (reps),context,384,354,328,39,BIOMASS_,2.5759120150949926,2.5759120150950094,optimal,fluxes fixed by transcriptome fit; pruned,Klebsiella_pneumoniae/models/Jenior2022_context/clinical_maxfit_reps/model.xml
+Klebsiella pneumoniae,Jenior laboratory,context,290,296,253,28,BIOMASS_,0.9671972934190567,0.9671972934196442,optimal,fluxes fixed by transcriptome fit; pruned,Klebsiella_pneumoniae/models/Jenior2022_context/laboratory_maxfit/model.xml
+Klebsiella pneumoniae,Jenior laboratory (reps),context,393,350,330,40,BIOMASS_,2.259772713875912,2.2597727138755612,optimal,fluxes fixed by transcriptome fit; pruned,Klebsiella_pneumoniae/models/Jenior2022_context/laboratory_maxfit_reps/model.xml
+Enterococcus faecium,iDR478,primary,938,638,480,152,biomass3,0.7325139281514874,64.83831666095992,optimal,,Enterococcus_faecium/models/iDR478/Model_Files/DataSheet_S1_iDR478_model_SBML.xml
