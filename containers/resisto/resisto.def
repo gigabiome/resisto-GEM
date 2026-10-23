@@ -1,0 +1,26 @@
+Bootstrap: docker
+From: mambaorg/micromamba:2.3.0
+
+# resisto-GEM model-building image: envs/resisto.yml + the CPLEX Python API from a licensed
+# CPLEX Studio installation. Build with containers/resisto/build.sh (it stages the CPLEX files);
+# the image contains licensed IBM software, so keep it private (do not push to public registries).
+
+%files
+    ../../envs/resisto.yml /opt/resisto/resisto.yml
+    cplex_python /opt/cplex_python
+
+%post
+    set -eu
+    micromamba create -y -n resisto -f /opt/resisto/resisto.yml
+    micromamba clean -a -y
+    cd /opt/cplex_python
+    /opt/conda/envs/resisto/bin/python -m pip install --no-deps .
+    /opt/conda/envs/resisto/bin/python -c "import cplex; print('CPLEX', cplex.Cplex().get_version())"
+
+%environment
+    export PATH=/opt/conda/envs/resisto/bin:$PATH
+    export PYTHONNOUSERSITE=1
+
+%labels
+    org.opencontainers.image.title resisto-gem
+    org.opencontainers.image.source https://github.com/gigabiome/resisto-GEM

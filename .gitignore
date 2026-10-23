@@ -18,3 +18,7 @@ Icon?
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# Container build: licensed CPLEX files and built images must never be committed
+containers/resisto/cplex_python/
+*.sif

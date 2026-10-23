@@ -1,0 +1,3 @@
+[submodule "external/AMRBench_QC"]
+	path = external/AMRBench_QC
+	url = https://github.com/gigabiome/AMRBench_QC.git

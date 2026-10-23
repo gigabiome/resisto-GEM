@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1265" viewBox="0 0 1700 1265" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1290" viewBox="0 0 1700 1290" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
   <defs>
     <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#444"/>
@@ -18,7 +18,6 @@
       .custom { fill: #FFF1E0; stroke: #D9822B; stroke-width: 1.6; }
       .data { fill: #F2F3F5; stroke: #7A808C; stroke-width: 1.4; }
       .ctx { fill: #FFFFFF; stroke: #9AA1AD; stroke-width: 1.2; stroke-dasharray: 5 4; }
-      .gate { fill: #FDECEC; stroke: #C0392B; stroke-width: 1.6; }
       .line { stroke: #444; stroke-width: 1.6; fill: none; }
       .bus { stroke: #6B46C1; stroke-width: 1.8; fill: none; stroke-dasharray: 7 4; }
       .badge { fill: #6B46C1; }
@@ -28,11 +27,11 @@
     </style>
   </defs>
 
-  <rect width="1700" height="1265" fill="#ffffff"/>
+  <rect width="1700" height="1290" fill="#ffffff"/>
 
   <!-- Title -->
-  <text x="30" y="44" class="title">Strain-specific GEM reconstruction pipeline: concept</text>
-  <text x="30" y="72" class="subtitle">Draft v0.1 · 2026-10-22 · assemblies, AMRBench_QC gene prediction, CarveMe, then species-reference biomass and gap-filling</text>
+  <text x="30" y="44" class="title">resisto-GEM: strain-specific GEM reconstruction pipeline</text>
+  <text x="30" y="72" class="subtitle">v0.2 (as implemented) · 2026-10-22 · Nextflow · AMRBench_QC gene prediction, CarveMe 1.6.6, then species-reference biomass and gap-filling</text>
 
   <!-- ===== Band: per genome ===== -->
   <rect x="30" y="96" width="1640" height="536" rx="14" fill="#F6FAF6" stroke="#D5E3D5"/>
@@ -49,85 +48,80 @@
   <line x1="290" y1="230" x2="328" y2="230" class="line" marker-end="url(#arr)"/>
 
   <!-- AMRBench_QC -->
-  <rect x="330" y="150" width="320" height="160" rx="10" class="tool"/>
-  <text x="344" y="176" class="h">AMRBench_QC (Nextflow)</text>
-  <text x="344" y="196" class="mono">gigabiome/AMRBench_QC @ 52001eb</text>
+  <rect x="330" y="150" width="340" height="160" rx="10" class="tool"/>
+  <text x="344" y="176" class="h">AMRBench_QC modules</text>
+  <text x="344" y="196" class="mono">git submodule @ 52001eb</text>
   <text x="344" y="218" class="t">QUAST 5.3.0 · assembly statistics</text>
   <text x="344" y="236" class="t">CheckM2 1.1.0 · completeness, contamination</text>
-  <text x="344" y="254" class="t">Bakta 1.12.0 · gene prediction + annotation</text>
-  <text x="344" y="272" class="t">Prokka 1.15.6 · optional (--skip_prokka)</text>
-  <text x="344" y="294" class="t">Output: proteins (.faa), GFF3, QC reports</text>
-  <circle cx="632" cy="168" r="11" class="badge"/><text x="632" y="172" text-anchor="middle" class="badgeT">D1</text>
+  <text x="344" y="254" class="t">Bakta 1.12.0 (full DB) · gene prediction</text>
+  <text x="344" y="276" class="t">Output: proteins (.faa) to CarveMe;</text>
+  <text x="344" y="294" class="t">QC metrics to the summary (no filtering)</text>
+  <circle cx="652" cy="168" r="11" class="badge"/><text x="652" y="172" text-anchor="middle" class="badgeT">D1</text>
+  <circle cx="626" cy="168" r="11" class="badge"/><text x="626" y="172" text-anchor="middle" class="badgeT">D2</text>
 
-  <line x1="650" y1="230" x2="688" y2="230" class="line" marker-end="url(#arr)"/>
-
-  <!-- QC gate -->
-  <polygon points="690,230 750,170 810,230 750,290" class="gate"/>
-  <text x="750" y="226" text-anchor="middle" class="h">QC gate</text>
-  <text x="750" y="244" text-anchor="middle" class="s">pass?</text>
-  <circle cx="800" cy="180" r="11" class="badge"/><text x="800" y="184" text-anchor="middle" class="badgeT">D2</text>
-
-  <!-- fail branch -->
-  <line x1="810" y1="230" x2="858" y2="230" class="line" marker-end="url(#arr)"/>
-  <text x="820" y="222" class="lab">fail</text>
-  <rect x="860" y="200" width="210" height="60" rx="10" class="data"/>
-  <text x="874" y="225" class="h">Excluded from modelling</text>
-  <text x="874" y="245" class="t">logged with reason</text>
+  <!-- Solver check -->
+  <rect x="720" y="170" width="330" height="120" rx="10" class="custom"/>
+  <text x="734" y="196" class="h">Solver check (once, first)</text>
+  <text x="734" y="218" class="t">2,500-binary MILP must solve optimally;</text>
+  <text x="734" y="236" class="t">catches missing CPLEX or size-limited</text>
+  <text x="734" y="254" class="t">editions before any genome is modelled</text>
+  <text x="734" y="276" class="t">CPLEX threads capped at task CPUs</text>
+  <circle cx="1032" cy="188" r="11" class="badge"/><text x="1032" y="192" text-anchor="middle" class="badgeT">D6</text>
 
   <!-- Orchestration context -->
-  <rect x="1110" y="150" width="530" height="160" rx="10" class="ctx"/>
-  <text x="1124" y="176" class="h">Orchestration (applies to every per-genome step)</text>
-  <text x="1124" y="200" class="t">Nextflow DSL2, one task per genome, -resume</text>
-  <text x="1124" y="220" class="t">One pinned container per tool; all versions recorded</text>
-  <text x="1124" y="240" class="t">Independent per-genome tasks: scales to 12,000 on HPC</text>
-  <text x="1124" y="260" class="t">MILP time limit / optimality gap recorded per model</text>
-  <text x="1124" y="280" class="t">Species-level preparation runs once and is reused</text>
+  <rect x="1100" y="150" width="540" height="160" rx="10" class="ctx"/>
+  <text x="1114" y="176" class="h">Orchestration</text>
+  <text x="1114" y="200" class="t">Nextflow DSL2 on SLURM + Apptainer; one task per genome; -resume</text>
+  <text x="1114" y="220" class="t">Pinned versions; CPLEX image built locally from a licence</text>
+  <text x="1114" y="240" class="t">Retries with more memory; a genome that still fails is skipped</text>
+  <text x="1114" y="258" class="t">and listed in the summary (or --fail_fast)</text>
+  <text x="1114" y="280" class="t">Reference preparation runs once and is reused</text>
   <circle cx="1622" cy="168" r="11" class="badge"/><text x="1622" y="172" text-anchor="middle" class="badgeT">D8</text>
 
-  <!-- pass path -->
-  <path d="M750,290 V372 H240 V408" class="line" marker-end="url(#arr)"/>
-  <text x="300" y="365" class="lab">pass: proteins (.faa) + species</text>
+  <!-- proteins path -->
+  <path d="M500,310 V372 H240 V408" class="line" marker-end="url(#arr)"/>
+  <text x="300" y="365" class="lab">proteins (.faa) + species</text>
 
   <!-- CarveMe -->
   <rect x="60" y="410" width="360" height="200" rx="10" class="tool"/>
-  <text x="74" y="436" class="h">CarveMe 1.6.6 · carve</text>
-  <text x="74" y="460" class="t">DIAMOND: proteins vs CarveMe BiGG DB</text>
+  <text x="74" y="436" class="h">CarveMe 1.6.6 · carve (wrapped)</text>
+  <text x="74" y="460" class="t">DIAMOND 2.1.9 vs CarveMe BiGG DB</text>
   <text x="74" y="478" class="t">Reaction scores from BiGG GPRs</text>
-  <text x="74" y="496" class="t">MILP carving of the universe model</text>
-  <text x="74" y="514" class="t">   gramneg (Gram−) / grampos (Gram+)</text>
-  <text x="74" y="532" class="t">--reference: score bonus for reactions</text>
-  <text x="74" y="550" class="t">   shared with the species reference</text>
-  <text x="74" y="568" class="t">no -g: gap-filling done downstream</text>
-  <text x="74" y="590" class="t">Output: draft model (universal 'Growth')</text>
-  <circle cx="402" cy="428" r="11" class="badge"/><text x="402" y="432" text-anchor="middle" class="badgeT">D6</text>
-  <circle cx="376" cy="428" r="11" class="badge"/><text x="376" y="432" text-anchor="middle" class="badgeT">D7</text>
+  <text x="74" y="496" class="t">MILP carving of gramneg / grampos universe</text>
+  <text x="74" y="514" class="t">--reference: harmonised species reference</text>
+  <text x="74" y="532" class="t">--reference-score 0.0; no -g</text>
+  <text x="74" y="550" class="t">Wrapper: MILP status recorded; error if</text>
+  <text x="74" y="568" class="t">no model written (carve exits 0 on failure)</text>
+  <text x="74" y="590" class="t">Output: draft model + DIAMOND table</text>
+  <circle cx="402" cy="428" r="11" class="badge"/><text x="402" y="432" text-anchor="middle" class="badgeT">D7</text>
 
   <line x1="420" y1="510" x2="458" y2="510" class="line" marker-end="url(#arr)"/>
 
   <!-- Biomass replacement -->
   <rect x="460" y="410" width="270" height="200" rx="10" class="custom"/>
   <text x="474" y="436" class="h">Biomass replacement</text>
-  <text x="474" y="460" class="t">Remove universal 'Growth' reaction</text>
-  <text x="474" y="478" class="t">Insert the species reference biomass</text>
-  <text x="474" y="496" class="t">Add reactions making its precursors</text>
-  <text x="474" y="514" class="t">that the draft lacks (lipids, cell</text>
-  <text x="474" y="532" class="t">wall, lumped pseudo-metabolites,</text>
-  <text x="474" y="550" class="t">e.g. iYS854)</text>
-  <text x="474" y="572" class="t">Set as the model objective</text>
+  <text x="474" y="460" class="t">Remove CarveMe 'Growth'</text>
+  <text x="474" y="478" class="t">Add the reference biomass module:</text>
+  <text x="474" y="496" class="t">biomass reaction, its lumping and</text>
+  <text x="474" y="514" class="t">drain reactions, required sinks</text>
+  <text x="474" y="532" class="t">(e.g. iYS854: 13 reactions)</text>
+  <text x="474" y="554" class="t">Reference biomass = only objective</text>
+  <text x="474" y="572" class="t">ATP maintenance (ATPM) bounds</text>
+  <text x="474" y="590" class="t">from the reference</text>
 
   <line x1="730" y1="510" x2="768" y2="510" class="line" marker-end="url(#arr)"/>
 
   <!-- Gap-filling -->
   <rect x="770" y="410" width="360" height="200" rx="10" class="custom"/>
   <text x="784" y="436" class="h">Reference-guided gap-filling</text>
-  <text x="784" y="460" class="t">MILP (CarveMe gapFill algorithm)</text>
-  <text x="784" y="478" class="t">Pool = harmonised reference + universe</text>
-  <text x="784" y="496" class="t">Cost: reference &lt; universe reactions;</text>
-  <text x="784" y="514" class="t">homology-scored reactions cheaper</text>
-  <text x="784" y="532" class="t">Growth ≥ minimum on the reference</text>
-  <text x="784" y="550" class="t">biomass, in the chosen medium</text>
-  <text x="784" y="572" class="t">Each added reaction tagged with its</text>
-  <text x="784" y="590" class="t">source (reference / universe)</text>
+  <text x="784" y="460" class="t">CarveMe's own gapFill() MILP</text>
+  <text x="784" y="478" class="t">Pool = universe + reference-only reactions</text>
+  <text x="784" y="496" class="t">Cost = 1 / (1 + homology score + 1.0</text>
+  <text x="784" y="514" class="t">if a reference reaction)</text>
+  <text x="784" y="532" class="t">LB + biotin, uptake 100, growth 0.1 or more</text>
+  <text x="784" y="554" class="t">Then medium stored with uptake 10</text>
+  <text x="784" y="572" class="t">Added reactions listed with source,</text>
+  <text x="784" y="590" class="t">score and candidate GPR</text>
   <circle cx="1112" cy="428" r="11" class="badge"/><text x="1112" y="432" text-anchor="middle" class="badgeT">D9</text>
   <circle cx="1086" cy="428" r="11" class="badge"/><text x="1086" y="432" text-anchor="middle" class="badgeT">D5</text>
   <circle cx="1060" cy="428" r="11" class="badge"/><text x="1060" y="432" text-anchor="middle" class="badgeT">D3</text>
@@ -136,25 +130,28 @@
 
   <!-- Model QC -->
   <rect x="1170" y="410" width="250" height="200" rx="10" class="custom"/>
-  <text x="1184" y="436" class="h">Model QC &amp; provenance</text>
-  <text x="1184" y="460" class="t">Valid SBML; loads in COBRApy</text>
-  <text x="1184" y="478" class="t">Grows on the gap-fill medium</text>
-  <text x="1184" y="496" class="t">Biomass precursors producible</text>
-  <text x="1184" y="514" class="t">Mass and charge balance check</text>
-  <text x="1184" y="532" class="t">Gap-fill size, gene count</text>
-  <text x="1184" y="554" class="t">Tool versions and parameters</text>
-  <text x="1184" y="572" class="t">written into the SBML notes</text>
+  <text x="1184" y="436" class="h">QC (COBRApy, report only)</text>
+  <text x="1184" y="460" class="t">SBML valid; objective correct</text>
+  <text x="1184" y="478" class="t">Growth equals build (reframed)</text>
+  <text x="1184" y="496" class="t">No growth without carbon</text>
+  <text x="1184" y="514" class="t">No ATP from nothing (EGC)</text>
+  <text x="1184" y="532" class="t">Mass/charge balance where</text>
+  <text x="1184" y="550" class="t">formulas/charges are set</text>
+  <text x="1184" y="572" class="t">Blocked reactions (FVA),</text>
+  <text x="1184" y="590" class="t">GPR coverage</text>
 
   <line x1="1420" y1="510" x2="1458" y2="510" class="line" marker-end="url(#arr)"/>
 
   <!-- Outputs -->
   <rect x="1460" y="410" width="180" height="200" rx="10" class="data"/>
   <text x="1474" y="436" class="h">Outputs</text>
-  <text x="1474" y="460" class="mono">&lt;sample&gt;.xml</text>
-  <text x="1474" y="478" class="mono">&lt;sample&gt;.json</text>
-  <text x="1474" y="500" class="t">gap-fill report</text>
-  <text x="1474" y="518" class="t">QC table row</text>
-  <text x="1474" y="536" class="t">run summary</text>
+  <text x="1474" y="460" class="mono">&lt;sample&gt;.xml.gz</text>
+  <text x="1474" y="478" class="mono">.gapfill.tsv</text>
+  <text x="1474" y="496" class="mono">.build.json</text>
+  <text x="1474" y="514" class="mono">.qc.json</text>
+  <text x="1474" y="538" class="t">one summary table</text>
+  <text x="1474" y="556" class="t">for the run, incl.</text>
+  <text x="1474" y="574" class="t">failed genomes</text>
 
   <!-- ===== Reference bus ===== -->
   <path d="M1295,728 V656" class="bus"/>
@@ -162,88 +159,86 @@
   <line x1="240" y1="656" x2="240" y2="614" class="bus" marker-end="url(#arrP)"/>
   <line x1="595" y1="656" x2="595" y2="614" class="bus" marker-end="url(#arrP)"/>
   <line x1="950" y1="656" x2="950" y2="614" class="bus" marker-end="url(#arrP)"/>
-  <line x1="1295" y1="656" x2="1295" y2="614" class="bus" marker-end="url(#arrP)"/>
-  <text x="252" y="650" class="labP">reference</text>
-  <text x="607" y="650" class="labP">biomass module</text>
-  <text x="962" y="650" class="labP">pool, costs, medium</text>
-  <text x="1307" y="650" class="labP">medium, biomass</text>
+  <text x="252" y="650" class="labP">harmonised reference</text>
+  <text x="607" y="650" class="labP">biomass module, ATPM</text>
+  <text x="962" y="650" class="labP">pool, reaction sources, medium</text>
 
-  <!-- ===== Band: per species ===== -->
+  <!-- ===== Band: per reference ===== -->
   <rect x="30" y="680" width="1640" height="240" rx="14" fill="#F7F5FF" stroke="#DDD6F3"/>
-  <text x="48" y="706" class="band">ONCE PER SPECIES (7×) · REUSED BY EVERY GENOME OF THAT SPECIES</text>
+  <text x="48" y="706" class="band">ONCE PER REFERENCE (6 MODELS; KpSC-pan SHARED BY KLEBSIELLA AND ENTEROBACTER)</text>
 
   <!-- Registry -->
   <rect x="60" y="730" width="300" height="170" rx="10" class="data"/>
   <text x="74" y="756" class="h">Reference registry</text>
-  <text x="74" y="778" class="mono">references.tsv</text>
-  <text x="74" y="798" class="t">species: reference GEM (SBML)</text>
+  <text x="74" y="778" class="mono">assets/references.csv</text>
+  <text x="74" y="798" class="t">species: reference GEM file</text>
   <text x="74" y="816" class="t">biomass reaction ID</text>
-  <text x="74" y="834" class="t">CarveMe universe: gramneg / grampos</text>
-  <text x="74" y="852" class="t">gap-filling medium</text>
-  <text x="74" y="874" class="t">reference choice per species</text>
+  <text x="74" y="834" class="t">universe: gramneg / grampos</text>
+  <text x="74" y="852" class="t">SHA-256 of the reference file</text>
+  <text x="74" y="874" class="mono">assets/media.tsv: LB_btn</text>
   <circle cx="342" cy="748" r="11" class="badge"/><text x="342" y="752" text-anchor="middle" class="badgeT">D4</text>
 
   <line x1="360" y1="815" x2="398" y2="815" class="line" marker-end="url(#arr)"/>
 
   <!-- Prepare reference -->
   <rect x="400" y="730" width="650" height="170" rx="10" class="custom"/>
-  <text x="414" y="756" class="h">Prepare reference (once per species)</text>
-  <text x="414" y="778" class="t">Map reference IDs and compartments to CarveMe's BiGG namespace (e.g. iYS854 'w' compartment)</text>
-  <text x="414" y="796" class="t">Extract the biomass reaction and the reactions that synthesise its precursors</text>
-  <text x="414" y="814" class="t">Build the gap-fill pool = reference + universe reactions, with a cost per reaction</text>
-  <text x="414" y="832" class="t">Define the medium as BiGG exchange reactions</text>
-  <text x="414" y="854" class="t">Check: harmonised reference grows on the medium with its own biomass</text>
-  <text x="414" y="872" class="t">Check: reference biomass is producible from the pool</text>
+  <text x="414" y="756" class="h">Prepare reference</text>
+  <text x="414" y="778" class="t">Check SHA-256; formulas and charges from SBML fbc fields; compartments x to C_x</text>
+  <text x="414" y="796" class="t">Biomass module: biomass + lumping/drain reactions (alternative biomasses excluded)</text>
+  <text x="414" y="814" class="t">Pool: universe + reference-only reactions; reference variants for ID clashes with</text>
+  <text x="414" y="832" class="t">reference-specific chemistry; no sinks, no gene rules</text>
+  <text x="414" y="854" class="t">Required sinks (greedy minimum) only if pool + module cannot grow</text>
+  <text x="414" y="872" class="t">Stop the run unless reference and pool + module both grow on the medium</text>
 
   <line x1="1050" y1="815" x2="1098" y2="815" class="line" marker-end="url(#arr)"/>
 
   <!-- Bundle -->
   <rect x="1100" y="730" width="540" height="170" rx="10" class="data"/>
-  <text x="1114" y="756" class="h">Prepared reference bundle (per species)</text>
-  <text x="1114" y="778" class="t">harmonised reference model (SBML)</text>
-  <text x="1114" y="796" class="t">biomass module: biomass + precursor reactions</text>
-  <text x="1114" y="814" class="t">gap-fill pool with reaction costs</text>
-  <text x="1114" y="832" class="t">medium definition</text>
-  <text x="1114" y="850" class="t">validation report</text>
+  <text x="1114" y="756" class="h">Prepared reference bundle</text>
+  <text x="1114" y="778" class="t">harmonised reference (SBML)</text>
+  <text x="1114" y="796" class="t">biomass module (SBML) + biomass/ATPM settings (JSON)</text>
+  <text x="1114" y="814" class="t">gap-fill pool (SBML) + origin of each pool reaction</text>
+  <text x="1114" y="832" class="t">validation: growth checks, required sinks, ID clashes,</text>
+  <text x="1114" y="850" class="t">balance diagnostics, software versions</text>
 
   <!-- ===== Decisions ===== -->
-  <rect x="30" y="944" width="1180" height="236" rx="14" fill="#FFFFFF" stroke="#DDD6F3"/>
-  <text x="48" y="972" class="band">OPEN DECISIONS · TO SETTLE BEFORE IMPLEMENTATION</text>
+  <rect x="30" y="944" width="1180" height="250" rx="14" fill="#FFFFFF" stroke="#DDD6F3"/>
+  <text x="48" y="972" class="band">DECISIONS (SETTLED 2026-10-22)</text>
 
   <g>
     <circle cx="66" cy="1000" r="11" class="badge"/><text x="66" y="1004" text-anchor="middle" class="badgeT">D1</text>
-    <text x="86" y="1005" class="t">Protein source for CarveMe: Bakta .faa or Prokka .faa</text>
+    <text x="86" y="1005" class="t">Proteins: Bakta 1.12.0, full database (AMRBench_QC modules)</text>
     <circle cx="66" cy="1032" r="11" class="badge"/><text x="66" y="1036" text-anchor="middle" class="badgeT">D2</text>
-    <text x="86" y="1037" class="t">QC thresholds: CheckM2 completeness / contamination, QUAST metrics</text>
+    <text x="86" y="1037" class="t">QC: report CheckM2/QUAST and model QC only; no filtering</text>
     <circle cx="66" cy="1064" r="11" class="badge"/><text x="66" y="1068" text-anchor="middle" class="badgeT">D3</text>
-    <text x="86" y="1069" class="t">Gap-filling medium: LB, M9 or species-specific; one or several</text>
+    <text x="86" y="1069" class="t">Medium: CarveMe LB + biotin for all species</text>
     <circle cx="66" cy="1096" r="11" class="badge"/><text x="66" y="1100" text-anchor="middle" class="badgeT">D4</text>
-    <text x="86" y="1101" class="t">Reference per species: E. coli and A. baumannii choices; Enterobacter has none</text>
-    <circle cx="66" cy="1128" r="11" class="badge"/><text x="66" y="1132" text-anchor="middle" class="badgeT">D5</text>
-    <text x="86" y="1133" class="t">Gap-fill costs: reference vs universe vs homology-scored reactions</text>
+    <text x="86" y="1101" class="t">References: iML1515, KpSC-pan v2 (+ Enterobacter), iCN718,</text>
+    <text x="86" y="1119" class="t">iSD1509, iYS854, iDR478</text>
+    <circle cx="66" cy="1146" r="11" class="badge"/><text x="66" y="1150" text-anchor="middle" class="badgeT">D5</text>
+    <text x="86" y="1151" class="t">Gap-fill cost: 1/(1 + homology + 1.0 for reference reactions)</text>
 
     <circle cx="646" cy="1000" r="11" class="badge"/><text x="646" y="1004" text-anchor="middle" class="badgeT">D6</text>
-    <text x="666" y="1005" class="t">MILP solver: CPLEX / Gurobi (licence) or SCIP (600 s limit)</text>
+    <text x="666" y="1005" class="t">Solver: CPLEX (SCIP accepts suboptimal solutions)</text>
     <circle cx="646" cy="1032" r="11" class="badge"/><text x="646" y="1036" text-anchor="middle" class="badgeT">D7</text>
-    <text x="666" y="1037" class="t">CarveMe --reference-score (default 0.0)</text>
+    <text x="666" y="1037" class="t">carve --reference-score: 0.0 (CarveMe default)</text>
     <circle cx="646" cy="1064" r="11" class="badge"/><text x="646" y="1068" text-anchor="middle" class="badgeT">D8</text>
-    <text x="666" y="1069" class="t">Compute environment: HPC scheduler or cloud; container engine</text>
+    <text x="666" y="1069" class="t">Compute: SLURM + Apptainer; cluster config supplied separately</text>
     <circle cx="646" cy="1096" r="11" class="badge"/><text x="646" y="1100" text-anchor="middle" class="badgeT">D9</text>
-    <text x="666" y="1101" class="t">Minimum growth rate for gap-filling (CarveMe default 0.1)</text>
+    <text x="666" y="1101" class="t">Minimum growth for gap-filling: 0.1 (CarveMe default)</text>
   </g>
 
   <!-- ===== Legend ===== -->
-  <rect x="1230" y="944" width="440" height="236" rx="14" fill="#FFFFFF" stroke="#DDD6F3"/>
+  <rect x="1230" y="944" width="440" height="250" rx="14" fill="#FFFFFF" stroke="#DDD6F3"/>
   <text x="1248" y="972" class="band">LEGEND</text>
   <rect x="1250" y="988" width="34" height="22" rx="5" class="tool"/><text x="1296" y="1004" class="t">Existing tool / pipeline</text>
-  <rect x="1250" y="1020" width="34" height="22" rx="5" class="custom"/><text x="1296" y="1036" class="t">Custom step (to be built)</text>
+  <rect x="1250" y="1020" width="34" height="22" rx="5" class="custom"/><text x="1296" y="1036" class="t">resisto-GEM code (bin/)</text>
   <rect x="1250" y="1052" width="34" height="22" rx="5" class="data"/><text x="1296" y="1068" class="t">Data / inputs / outputs</text>
-  <polygon points="1250,1095 1267,1084 1284,1095 1267,1106" class="gate"/><text x="1296" y="1100" class="t">QC gate</text>
-  <circle cx="1267" cy="1127" r="11" class="badge"/><text x="1267" y="1131" text-anchor="middle" class="badgeT">Dn</text><text x="1296" y="1132" class="t">Open decision</text>
-  <line x1="1250" y1="1158" x2="1284" y2="1158" class="bus"/><text x="1296" y="1163" class="t">Species reference used by a step</text>
+  <circle cx="1267" cy="1095" r="11" class="badge"/><text x="1267" y="1099" text-anchor="middle" class="badgeT">Dn</text><text x="1296" y="1100" class="t">Decision (see panel)</text>
+  <line x1="1250" y1="1126" x2="1284" y2="1126" class="bus"/><text x="1296" y="1131" class="t">Reference bundle used by a step</text>
 
   <!-- Footnote -->
-  <text x="30" y="1210" class="s">Verified against CarveMe 1.6.6 source: --reference changes only the carving scores of reactions shared with the reference; -g gap-fills from the universe model only;</text>
-  <text x="30" y="1228" class="s">the biomass is the universe 'Growth' reaction. The orange steps implement the requested reference biomass and reference-based gap-filling, which CarveMe does not provide.</text>
-  <text x="30" y="1246" class="s">Tool versions for AMRBench_QC are taken from its module definitions at commit 52001eb.</text>
+  <text x="30" y="1222" class="s">CarveMe 1.6.6 source: --reference changes only carving scores; -g gap-fills from the universe only; the biomass is the universe 'Growth'. Hence the orange steps.</text>
+  <text x="30" y="1240" class="s">Models are written without boundaryCondition species: with reframed's default output, COBRApy opens uptake of every extracellular metabolite (growth 50.2 instead of 3.48).</text>
+  <text x="30" y="1258" class="s">Details and verification: docs/method.md. Tool versions for AMRBench_QC are those of its modules at commit 52001eb.</text>
 </svg>
