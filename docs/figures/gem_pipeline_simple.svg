@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1620" height="520" viewBox="0 0 1620 520" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#444"/>
+    </marker>
+    <marker id="arrP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B46C1"/>
+    </marker>
+    <style>
+      .title { font-size: 28px; font-weight: 700; fill: #1d2433; }
+      .sub { font-size: 15px; fill: #555; }
+      .num { font-size: 14px; font-weight: 700; fill: #fff; }
+      .h { font-size: 19px; font-weight: 700; fill: #1d2433; }
+      .t { font-size: 15px; fill: #2b3140; }
+      .s { font-size: 13px; fill: #666; }
+      .tool { fill: #E8F0FB; stroke: #3B6FB6; stroke-width: 2; }
+      .custom { fill: #FFF1E0; stroke: #D9822B; stroke-width: 2; }
+      .data { fill: #F2F3F5; stroke: #7A808C; stroke-width: 1.8; }
+      .ref { fill: #F7F5FF; stroke: #6B46C1; stroke-width: 2; }
+      .line { stroke: #444; stroke-width: 2; fill: none; }
+      .bus { stroke: #6B46C1; stroke-width: 2; fill: none; stroke-dasharray: 8 5; }
+    </style>
+  </defs>
+
+  <rect width="1620" height="520" fill="#ffffff"/>
+  <text x="40" y="52" class="title">resisto-GEM pipeline</text>
+  <text x="40" y="80" class="sub">From genome assembly to strain-specific metabolic model · 7 species · 140 test genomes, scaling to 12,000</text>
+
+  <!-- 1 Assemblies -->
+  <rect x="40" y="120" width="220" height="150" rx="12" class="data"/>
+  <circle cx="68" cy="148" r="14" fill="#7A808C"/><text x="68" y="153" text-anchor="middle" class="num">1</text>
+  <text x="92" y="155" class="h">Assemblies</text>
+  <text x="60" y="195" class="t">Genome assembly</text>
+  <text x="60" y="217" class="t">+ species name</text>
+
+  <line x1="260" y1="195" x2="302" y2="195" class="line" marker-end="url(#arr)"/>
+
+  <!-- 2 Gene prediction -->
+  <rect x="304" y="120" width="220" height="150" rx="12" class="tool"/>
+  <circle cx="332" cy="148" r="14" fill="#3B6FB6"/><text x="332" y="153" text-anchor="middle" class="num">2</text>
+  <text x="356" y="155" class="h">Gene prediction</text>
+  <text x="324" y="195" class="t">AMRBench_QC</text>
+  <text x="324" y="217" class="t">Bakta proteins,</text>
+  <text x="324" y="239" class="t">CheckM2 + QUAST QC</text>
+
+  <line x1="524" y1="195" x2="566" y2="195" class="line" marker-end="url(#arr)"/>
+
+  <!-- 3 Draft model -->
+  <rect x="568" y="120" width="220" height="150" rx="12" class="tool"/>
+  <circle cx="596" cy="148" r="14" fill="#3B6FB6"/><text x="596" y="153" text-anchor="middle" class="num">3</text>
+  <text x="620" y="155" class="h">Draft model</text>
+  <text x="588" y="195" class="t">CarveMe 1.6.6,</text>
+  <text x="588" y="217" class="t">guided by the</text>
+  <text x="588" y="239" class="t">species reference</text>
+
+  <line x1="788" y1="195" x2="830" y2="195" class="line" marker-end="url(#arr)"/>
+
+  <!-- 4 Biomass -->
+  <rect x="832" y="120" width="220" height="150" rx="12" class="custom"/>
+  <circle cx="860" cy="148" r="14" fill="#D9822B"/><text x="860" y="153" text-anchor="middle" class="num">4</text>
+  <text x="884" y="155" class="h">Biomass</text>
+  <text x="852" y="195" class="t">Replace CarveMe's</text>
+  <text x="852" y="217" class="t">generic biomass with</text>
+  <text x="852" y="239" class="t">the reference's</text>
+
+  <line x1="1052" y1="195" x2="1094" y2="195" class="line" marker-end="url(#arr)"/>
+
+  <!-- 5 Gap-filling -->
+  <rect x="1096" y="120" width="220" height="150" rx="12" class="custom"/>
+  <circle cx="1124" cy="148" r="14" fill="#D9822B"/><text x="1124" y="153" text-anchor="middle" class="num">5</text>
+  <text x="1148" y="155" class="h">Gap-filling</text>
+  <text x="1116" y="195" class="t">Add missing reactions,</text>
+  <text x="1116" y="217" class="t">preferring reference</text>
+  <text x="1116" y="239" class="t">ones; LB + biotin</text>
+
+  <line x1="1316" y1="195" x2="1358" y2="195" class="line" marker-end="url(#arr)"/>
+
+  <!-- 6 QC & outputs -->
+  <rect x="1360" y="120" width="220" height="150" rx="12" class="data"/>
+  <circle cx="1388" cy="148" r="14" fill="#7A808C"/><text x="1388" y="153" text-anchor="middle" class="num">6</text>
+  <text x="1412" y="155" class="h">QC &amp; output</text>
+  <text x="1380" y="195" class="t">Model checks</text>
+  <text x="1380" y="217" class="t">(COBRApy), SBML</text>
+  <text x="1380" y="239" class="t">model + summary</text>
+
+  <!-- Reference -->
+  <rect x="568" y="360" width="748" height="96" rx="12" class="ref"/>
+  <text x="942" y="394" text-anchor="middle" class="h">Curated species reference model (prepared once per species)</text>
+  <text x="942" y="424" text-anchor="middle" class="t">iML1515 · KpSC-pan v2 (also Enterobacter) · iCN718 · iSD1509 · iYS854 · iDR478</text>
+
+  <line x1="678" y1="360" x2="678" y2="274" class="bus" marker-end="url(#arrP)"/>
+  <line x1="942" y1="360" x2="942" y2="274" class="bus" marker-end="url(#arrP)"/>
+  <line x1="1206" y1="360" x2="1206" y2="274" class="bus" marker-end="url(#arrP)"/>
+
+  <!-- Legend / footer -->
+  <rect x="40" y="370" width="22" height="16" rx="3" class="tool"/><text x="72" y="383" class="s">Existing tool</text>
+  <rect x="40" y="398" width="22" height="16" rx="3" class="custom"/><text x="72" y="411" class="s">resisto-GEM step</text>
+  <line x1="40" y1="434" x2="62" y2="434" class="bus"/><text x="72" y="439" class="s">Uses the reference</text>
+
+  <text x="40" y="496" class="s">Nextflow on SLURM · CPLEX solver · details: gem_pipeline_workflow.pdf and docs/method.md</text>
+</svg>
