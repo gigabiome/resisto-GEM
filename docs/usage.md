@@ -8,7 +8,7 @@
    git clone --recurse-submodules https://github.com/gigabiome/resisto-GEM.git
    ```
 
-   In an existing clone, run `git submodule update --init`.
+   In an existing clone, run `git submodule update --init`. Without the submodule, Nextflow stops with `Can't find a matching module file for include: ../external/AMRBench_QC/...`. Nextflow fetches it automatically when it pulls the pipeline itself (`nextflow run gigabiome/resisto-GEM`), because `manifest.recurseSubmodules = true`.
 
 2. Download the reference GEMs (about 240 MB) into `reference_gems/`:
 
@@ -18,12 +18,12 @@
 
    The pipeline checks each reference against the SHA-256 in `assets/references.csv` and stops on a mismatch.
 
-3. Build the CPLEX environment (`docs/solver.md`).
+3. Set up the solver environment: Gurobi from the cluster module plus `gurobipy` in `envs/resisto.yml` (`docs/solver.md`).
 
 4. Optionally, check the model-building scripts in that environment:
 
    ```bash
-   python tests/regression.py --solver cplex
+   python tests/regression.py --solver gurobi
    ```
 
 5. Put the assemblies where the samplesheet points. Relative paths are resolved from the launch directory.
@@ -65,7 +65,8 @@ nextflow run main.nf -profile apptainer -c cluster.config \
 | `--reference_registry` | `assets/references.csv` | Species → reference GEM, biomass, universe, SHA-256 |
 | `--reference_dir` | `reference_gems/` | Where the reference files are |
 | `--mediadb` / `--medium` | `assets/media.tsv` / `LB_btn` | Gap-filling medium (CarveMe LB + biotin) |
-| `--solver` | `cplex` | `cplex`, `gurobi` or `scip` |
+| `--solver` | `gurobi` | `gurobi`, `cplex` or `scip` |
+| `--resisto_modules` | none | Cluster module(s) loaded by the model-building jobs, e.g. `gurobi/12.0.3` |
 | `--reference_bonus` | `1.0` | Score added to reference reactions in gap-filling (cost 1/(1+score)) |
 | `--carve_reference_score` | `0.0` | CarveMe `--reference-score` (CarveMe default) |
 | `--min_growth` | `0.1` | Growth required by gap-filling (CarveMe default) |
@@ -74,7 +75,7 @@ nextflow run main.nf -profile apptainer -c cluster.config \
 | `--atpm_source` | `reference` | ATP maintenance bounds from the reference, or CarveMe's (`carveme`) |
 | `--diamond_args` | `--more-sensitive --top 10 --quiet` | CarveMe's DIAMOND defaults; threads are added per task |
 | `--qc_blocked` | `true` | Count blocked reactions in QC (FVA) |
-| `--resisto_container` / `--resisto_conda` | none / `envs/resisto.yml` | Environment for the model-building steps |
+| `--resisto_env` / `--resisto_container` / `--resisto_conda` | none / none / `envs/resisto.yml` | Environment for the model-building steps (CarveMe + solver); see `docs/solver.md` |
 | `--bakta_db`, `--bakta_db_type`, `--checkm2_db`, `--db_dir`, `--bakta_args` | as AMRBench_QC | Databases are downloaded into `--db_dir` if not given (Bakta full: ~70 GB) |
 | `--publish_intermediates` | `false` | Also publish CarveMe drafts (~9 MB) and DIAMOND tables |
 | `--bakta_publish_all` | `false` | Publish all Bakta files, not only `faa/gff3/tsv/txt` |
@@ -90,7 +91,7 @@ nextflow run main.nf -profile apptainer -c cluster.config \
 | References | see `docs/method.md` | iCN718 rather than iACB23LX (whose biomass is CarveMe's generic one); KpSC-pan for *Enterobacter* (no curated *Enterobacter* GEM) |
 | Medium | LB + biotin, all species | One medium; biotin is required by iDR478's biomass and is present in real LB |
 | QC | report only | Filtering is a downstream decision |
-| Solver | CPLEX | SCIP returns suboptimal carving solutions |
+| Solver | Gurobi (cluster module) | A full commercial solver is needed: SCIP returns suboptimal carving solutions |
 
 ## Outputs
 

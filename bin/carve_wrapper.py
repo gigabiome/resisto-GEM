@@ -7,7 +7,7 @@
   3. Non-zero exit if no model file was written: `carve` returns exit code 0 even when it prints
      "Failed to build model." or cannot run DIAMOND.
 
-Usage: carve_wrapper.py --solver cplex --threads 4 --status-json s.json -- <carve arguments>
+Usage: carve_wrapper.py --solver gurobi --threads 4 --status-json s.json -- <carve arguments>
 """
 import argparse
 import os

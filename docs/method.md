@@ -64,13 +64,13 @@ Bakta's predicted proteins (`.faa`) are the input to CarveMe. QC metrics are rep
 
    ```
    carve proteins.faa -u <universe> --reference <harmonised reference> --reference-score 0.0 \
-         --diamond-args="--more-sensitive --top 10 --quiet --threads N" --solver cplex
+         --diamond-args="--more-sensitive --top 10 --quiet --threads N" --solver gurobi
    ```
 
    There is no `-g`: gap-filling is done in step 2.
    - `--reference` only changes the carving scores of reactions that are in both the universe and the reference. With the default `--reference-score 0` it doubles their annotation score and exempts unannotated reference reactions from the −1 penalty.
    - `--diamond-args` replaces CarveMe's DIAMOND defaults, so the same defaults are passed explicitly, plus a thread limit.
-   - The wrapper caps CPLEX/Gurobi threads at the CPUs SLURM allocates, records the MILP status, and exits with an error if no model was written. `carve` itself returns 0 even on failure.
+   - The wrapper caps Gurobi/CPLEX threads at the CPUs SLURM allocates, records the MILP status, and exits with an error if no model was written. `carve` itself returns 0 even on failure.
 2. **Biomass and gap-filling** (`bin/build_strain_model.py`):
    1. CarveMe's `Growth` reaction is removed and the reference biomass module added. The reference biomass becomes the only objective.
    2. `R_ATPM` bounds come from the reference (NGAM): 6.86 for iML1515, 8.39 fixed for iSD1509, 6.8 fixed for KpSC-pan, 0.81 for iDR478, 0 for iYS854 and iCN718.
@@ -83,7 +83,7 @@ Bakta's predicted proteins (`.faa`) are the input to CarveMe. QC metrics are rep
    4. The medium is then stored as the model's default bounds, with uptake ≤ 10 (CarveMe `-i`).
    5. Gap-filled reactions get no GPR, as in CarveMe. The homology-based candidate GPR is listed in `<sample>.gapfill.tsv`.
    6. The model is written as gzip-compressed SBML L3 FBC with BiGG IDs and no `boundaryCondition` species (see section 6).
-3. **QC** (`bin/model_qc.py`, COBRApy, an independent parser and LP solver). All checks are reported; none filters:
+3. **QC** (`bin/model_qc.py`, COBRApy with GLPK: an independent parser and LP solver; GLPK is pinned because COBRApy would otherwise pick up Gurobi when it is installed). All checks are reported; none filters:
    - SBML validation;
    - the objective is the reference biomass;
    - growth matches the build step;
@@ -107,7 +107,7 @@ Genomes that failed after retries are kept, with status `no_model` or `failed_af
 | iACB23LX's biomass equals CarveMe's generic Gram-negative `Growth` | iCN718 is used for *A. baumannii* |
 | reframed's `bigg` SBML flavour writes extracellular species with `boundaryCondition="true"`; COBRApy then creates `EX_<met>` reactions that collide with the model's own exchanges and open uptake (CarveMe *E. coli* benchmark model: growth 50.2 instead of 3.48) | All models are written without the flag. **Re-saving these models with reframed re-introduces it**; load them with COBRApy only from the files this pipeline writes |
 | COBRApy reads a missing `fbc:charge` as 0; CarveMe's universe lacks charges for ~1,000 metabolites | Charge balance is judged only where a charge is set |
-| SCIP returns CarveMe's carving MILP as SUBOPTIMAL (E. coli test: SUBOPTIMAL after 197 s); CarveMe accepts this silently | CPLEX is used; MILP status is recorded for every model |
+| SCIP returns CarveMe's carving MILP as SUBOPTIMAL (E. coli test: SUBOPTIMAL after 197 s); CarveMe accepts this silently | A full commercial solver is used (Gurobi; CPLEX also supported); MILP status is recorded for every model |
 | CarveMe's bundled DIAMOND database was built by DIAMOND build 163 (v2.1.9) | `diamond=2.1.9` is pinned |
 | The test E. coli draft gained 9 iML1515-only reactions (SUF Fe-S assembly, KDO2-lipid IV export, undecaprenyl-diphosphate synthase, Ni²⁺ exchange), all with homology support | Confirms the pool adds reactions CarveMe's universe lacks |
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-"""Independent quality checks of a strain model with COBRApy (a different SBML parser and LP
-solver from the reframed/CarveMe build, so it also catches I/O problems).
+"""Independent quality checks of a strain model with COBRApy (a different SBML parser, and LP
+solver GLPK, rather than the reframed/CarveMe build with Gurobi/CPLEX, so it also catches I/O problems).
 
 Checks (all reported; nothing is filtered here):
   sbml_*                 libSBML/COBRApy validation messages per category
@@ -29,6 +29,7 @@ from resisto_common import read_fbc_fields
 
 logging.getLogger('cobra').setLevel(logging.ERROR)
 TOL = 1e-6
+QC_SOLVER = 'glpk'
 
 
 def strip(r_id):
@@ -72,6 +73,12 @@ def main():
         with open(f'{args.sample}.qc.json', 'w') as f:
             json.dump(qc, f, indent=2)
         raise SystemExit('Model could not be loaded by COBRApy')
+
+    # Pin the LP solver: COBRApy otherwise picks Gurobi/CPLEX automatically when installed (it did,
+    # once gurobipy was added), making the QC solver depend on the environment. GLPK keeps the
+    # QC independent of the solver used to build the model.
+    model.solver = QC_SOLVER
+    qc['qc_solver'] = QC_SOLVER
 
     objective = [r.id for r in model.reactions if r.objective_coefficient != 0]
     qc['objective'] = ';'.join(objective)

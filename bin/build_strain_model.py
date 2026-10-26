@@ -62,7 +62,7 @@ def main():
     p.add_argument('--gapfill-max-uptake', type=float, default=float(config.getint('gapfill', 'max_uptake')))
     p.add_argument('--init-max-uptake', type=float, default=10.0)
     p.add_argument('--reference-bonus', type=float, default=1.0)
-    p.add_argument('--solver', default='cplex')
+    p.add_argument('--solver', default='gurobi')
     p.add_argument('--threads', type=int, default=1)
     args = p.parse_args()
 

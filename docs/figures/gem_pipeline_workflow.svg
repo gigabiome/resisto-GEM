@@ -63,16 +63,16 @@
   <rect x="720" y="170" width="330" height="120" rx="10" class="custom"/>
   <text x="734" y="196" class="h">Solver check (once, first)</text>
   <text x="734" y="218" class="t">2,500-binary MILP must solve optimally;</text>
-  <text x="734" y="236" class="t">catches missing CPLEX or size-limited</text>
+  <text x="734" y="236" class="t">catches a missing solver or size-limited</text>
   <text x="734" y="254" class="t">editions before any genome is modelled</text>
-  <text x="734" y="276" class="t">CPLEX threads capped at task CPUs</text>
+  <text x="734" y="276" class="t">Gurobi threads capped at task CPUs</text>
   <circle cx="1032" cy="188" r="11" class="badge"/><text x="1032" y="192" text-anchor="middle" class="badgeT">D6</text>
 
   <!-- Orchestration context -->
   <rect x="1100" y="150" width="540" height="160" rx="10" class="ctx"/>
   <text x="1114" y="176" class="h">Orchestration</text>
   <text x="1114" y="200" class="t">Nextflow DSL2 on SLURM + Apptainer; one task per genome; -resume</text>
-  <text x="1114" y="220" class="t">Pinned versions; CPLEX image built locally from a licence</text>
+  <text x="1114" y="220" class="t">Pinned versions; Gurobi via cluster module + gurobipy</text>
   <text x="1114" y="240" class="t">Retries with more memory; a genome that still fails is skipped</text>
   <text x="1114" y="258" class="t">and listed in the summary (or --fail_fast)</text>
   <text x="1114" y="280" class="t">Reference preparation runs once and is reused</text>
@@ -219,7 +219,7 @@
     <text x="86" y="1151" class="t">Gap-fill cost: 1/(1 + homology + 1.0 for reference reactions)</text>
 
     <circle cx="646" cy="1000" r="11" class="badge"/><text x="646" y="1004" text-anchor="middle" class="badgeT">D6</text>
-    <text x="666" y="1005" class="t">Solver: CPLEX (SCIP accepts suboptimal solutions)</text>
+    <text x="666" y="1005" class="t">Solver: Gurobi (SCIP accepts suboptimal solutions)</text>
     <circle cx="646" cy="1032" r="11" class="badge"/><text x="646" y="1036" text-anchor="middle" class="badgeT">D7</text>
     <text x="666" y="1037" class="t">carve --reference-score: 0.0 (CarveMe default)</text>
     <circle cx="646" cy="1064" r="11" class="badge"/><text x="646" y="1068" text-anchor="middle" class="badgeT">D8</text>

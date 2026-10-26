@@ -107,7 +107,7 @@ def set_solver(name, threads=None):
     """Select the reframed solver and, for CPLEX/Gurobi, cap the thread count.
 
     reframed 1.6.0 exposes no thread parameter, so solver construction is wrapped.
-    Without this, CPLEX uses every core on the node, which oversubscribes SLURM jobs.
+    Without this, Gurobi/CPLEX use every core on the node, which oversubscribes SLURM jobs.
     """
     set_default_solver(name)
     if threads is None:

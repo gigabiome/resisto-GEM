@@ -3,7 +3,7 @@
 
 CarveMe's carving and gap-filling MILPs have thousands of binary variables. Free/community
 editions of commercial solvers fail on these (CPLEX Community Edition: 1,000 variables and
-constraints; Gurobi's pip "restricted" licence: 2,000), which would otherwise only show up as
+constraints; Gurobi's pip "restricted" licence: 2,000, verified to fail here), which would otherwise only show up as
 failed reconstructions. This builds a 2,500-variable binary problem and checks the optimum.
 """
 import argparse

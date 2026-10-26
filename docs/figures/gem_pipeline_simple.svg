@@ -97,5 +97,5 @@
   <rect x="40" y="398" width="22" height="16" rx="3" class="custom"/><text x="72" y="411" class="s">resisto-GEM step</text>
   <line x1="40" y1="434" x2="62" y2="434" class="bus"/><text x="72" y="439" class="s">Uses the reference</text>
 
-  <text x="40" y="496" class="s">Nextflow on SLURM · CPLEX solver · details: gem_pipeline_workflow.pdf and docs/method.md</text>
+  <text x="40" y="496" class="s">Nextflow on SLURM · Gurobi solver · details: gem_pipeline_workflow.pdf and docs/method.md</text>
 </svg>

@@ -167,7 +167,7 @@ def main():
                    help='Uptake bound for medium compounds in the checks (CarveMe gap-fill uses 100)')
     p.add_argument('--atpm-source', choices=['reference', 'carveme'], default='reference')
     p.add_argument('--min-growth', type=float, default=0.1)
-    p.add_argument('--solver', default='cplex')
+    p.add_argument('--solver', default='gurobi')
     p.add_argument('--threads', type=int, default=1)
     args = p.parse_args()
 

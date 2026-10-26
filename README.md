@@ -21,9 +21,9 @@ It has **not yet been run on real genomes**; the first run will be on the cluste
 ```bash
 git clone --recurse-submodules https://github.com/gigabiome/resisto-GEM.git && cd resisto-GEM
 bash scripts/download_reference_gems.sh                      # reference GEMs (checksummed)
-bash containers/resisto/build.sh /path/to/CPLEX_Studio       # CarveMe + CPLEX image (docs/solver.md)
+# CarveMe + gurobipy environment in your home folder: docs/solver.md
 nextflow run main.nf -profile apptainer,test -c cluster.config \
-    --resisto_container containers/resisto/resisto-gem.sif --outdir results
+    --resisto_env $HOME/envs/resisto-gem --resisto_modules gurobi/<version> --outdir results
 ```
 
 Details are in [docs/usage.md](docs/usage.md).
@@ -37,7 +37,7 @@ Details are in [docs/usage.md](docs/usage.md).
 | `bin/` | Model-building scripts run by the pipeline (reference preparation, carve wrapper, build, QC, summary) |
 | `assets/references.csv` | Species → reference GEM, biomass reaction, CarveMe universe, SHA-256 |
 | `assets/media.tsv` | Gap-filling medium `LB_btn` (CarveMe LB + biotin) |
-| `envs/resisto.yml`, `containers/resisto/` | Pinned environment and Apptainer recipe (CPLEX added at build time) |
+| `envs/resisto.yml`, `containers/resisto/` | Pinned environment (solver added separately); optional CPLEX Apptainer recipe |
 | `tests/regression.py` | Regression test of the model-building scripts |
 | `data/test_sample_sheet.csv` | Test set: 140 assemblies, 20 per species. The assemblies in `data/genomes/` are **not tracked in git** |
 | `reference_gems/` | Reference GEM catalogue. Models and papers are **not tracked**; run `scripts/download_reference_gems.sh` |
@@ -48,4 +48,4 @@ Details are in [docs/usage.md](docs/usage.md).
 
 - Nextflow ≥ 24.04 (tested with 26.04.7), Java 17+
 - Apptainer/Singularity, Docker or conda
-- A CPLEX licence for production runs (`docs/solver.md`)
+- A full Gurobi (default) or CPLEX licence for production runs (`docs/solver.md`)

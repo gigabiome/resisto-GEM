@@ -1,8 +1,8 @@
 # Environment for every resisto-GEM model-building step (CarveMe, reframed, COBRApy, DIAMOND).
 # Python packages are pinned to the exact set the scripts were tested with (pip freeze, 2026-10-22).
 #
-# CPLEX is NOT included (licensed). After creating this environment, install the CPLEX Python API
-# from your licensed CPLEX Studio into it; see docs/solver.md. The pipeline's CHECK_SOLVER step
+# The MILP solver is NOT included (licensed). After creating this environment, add gurobipy at the
+# cluster Gurobi version (default solver) or CPLEX; see docs/solver.md. The pipeline's CHECK_SOLVER step
 # verifies the installation before any genome is processed.
 #
 # diamond is pinned to 2.1.9 because CarveMe 1.6.6's bundled bigg_proteins.dmnd was built with
