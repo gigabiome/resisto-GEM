@@ -16,11 +16,18 @@ CarveMe's carving and gap-filling are mixed-integer problems with thousands of b
 
    The module normally also sets the licence, e.g. `GRB_LICENSE_FILE` pointing at a licence server. If `gurobi_cl` reports a licence error, ask HPC support how jobs should obtain the licence.
 
-2. **Create the pipeline's Python environment and add `gurobipy` at the same version as the module.** Its licence must cover the `gurobipy` version, so match the module's major.minor, e.g. module 12.0.3 → `gurobipy==12.0.3`.
+2. **Create the pipeline's Python environment and check whether the module already provides `gurobipy`** (the Python interface every tool here imports). Many cluster modules make it importable, e.g. via `PYTHONPATH`:
 
    ```bash
    conda env create -f envs/resisto.yml -p $HOME/envs/resisto-gem
+   module load gurobi/<version>
    conda activate $HOME/envs/resisto-gem
+   python -c "import gurobipy, sys; print(sys.version.split()[0], gurobipy.__file__, gurobipy.gurobi.version())"
+   ```
+
+   If this prints a path inside the module, nothing else is needed. Only if the import fails (not found, or built for another Python than 3.10), install `gurobipy` at the module's version:
+
+   ```bash
    pip install "gurobipy==<module version>"
    ```
 
