@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Prepare a curated reference GEM for reference-guided CarveMe reconstruction.
 
 Runs once per reference model. Outputs (prefix = --reference-id):

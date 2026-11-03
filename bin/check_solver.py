@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Check that the requested MILP solver works at the problem sizes CarveMe needs.
 
 CarveMe's carving and gap-filling MILPs have thousands of binary variables. Free/community

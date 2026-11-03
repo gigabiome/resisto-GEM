@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Run CarveMe's unmodified `carve` command with three additions needed on a cluster:
 
   1. CPLEX/Gurobi thread count capped at --threads (reframed exposes no thread setting, and the

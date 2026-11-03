@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Collect per-sample results into one table (report only; nothing is filtered).
 
 Inputs are the files staged by the SUMMARISE process:

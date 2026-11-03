@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Turn a CarveMe draft into a strain model with the species reference biomass, gap-filled
 against the prepared reference pool.
 

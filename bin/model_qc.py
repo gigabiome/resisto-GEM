@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Independent quality checks of a strain model with COBRApy (a different SBML parser, and LP
 solver GLPK, rather than the reframed/CarveMe build with Gurobi/CPLEX, so it also catches I/O problems).
 
